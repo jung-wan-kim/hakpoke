@@ -20,15 +20,21 @@ export default function RootLayout({
             <Link href="/" className="text-2xl font-bold">
               학폭케어
             </Link>
-            <div className="space-x-6">
+            <div className="space-x-4 md:space-x-6 text-sm md:text-base">
               <Link href="/" className="hover:text-blue-200 transition">
                 홈
+              </Link>
+              <Link href="/hope" className="hover:text-blue-200 transition">
+                희망
+              </Link>
+              <Link href="/help" className="hover:text-blue-200 transition">
+                도움
               </Link>
               <Link href="/info" className="hover:text-blue-200 transition">
                 정보
               </Link>
-              <Link href="/report" className="hover:text-blue-200 transition">
-                신고하기
+              <Link href="/report" className="hover:text-blue-200 transition font-bold">
+                신고
               </Link>
             </div>
           </div>
