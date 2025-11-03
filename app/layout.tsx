@@ -1,6 +1,20 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import Link from 'next/link'
+import { Inter, Noto_Sans_KR } from 'next/font/google'
+
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+})
+
+const notoSansKR = Noto_Sans_KR({
+  subsets: ['latin'],
+  weight: ['300', '400', '500', '600', '700', '900'],
+  variable: '--font-noto-sans-kr',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: '학폭케어 - 학교폭력 예방 및 신고 시스템',
@@ -14,7 +28,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body>
+      <body className={`${inter.variable} ${notoSansKR.variable} antialiased`}>
         {/* Windsurf 스타일 네비게이션 */}
         <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style={{ background: 'rgba(10, 22, 40, 0.8)', backdropFilter: 'blur(20px)' }}>
           <div className="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">

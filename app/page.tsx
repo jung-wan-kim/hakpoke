@@ -28,8 +28,24 @@ export default function Home() {
   return (
     <div className="bg-windsurf-hero">
       {/* 히어로 - 첫 고백: "저도 당했습니다" */}
-      <section className="min-h-screen flex items-center justify-center px-6 relative z-10 grid-background">
-        <div className="max-w-6xl mx-auto text-center">
+      <section className="min-h-screen flex items-center justify-center px-6 relative overflow-hidden">
+        {/* 배경 비디오 */}
+        <div className="absolute inset-0 z-0">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover opacity-20 scale-110"
+            style={{ filter: 'grayscale(100%) brightness(0.3)' }}
+          >
+            <source src="https://cdn.coverr.co/videos/coverr-lonely-student-sitting-on-stairs-8584/1080p.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0A1628]/90 via-[#0A1628]/80 to-[#0A1628]/95" />
+          <div className="grid-background absolute inset-0" />
+        </div>
+
+        <div className="max-w-6xl mx-auto text-center relative z-10">
           <h1
             className="text-white mb-12 opacity-0 animate-fade-in-up text-windsurf-hero"
             style={{ animationDelay: '0.2s' }}
@@ -63,7 +79,21 @@ export default function Home() {
       </section>
 
       {/* 과거 - 구체적인 피해 경험 */}
-      <section className="scroll-reveal py-40 px-6 bg-dark-gradient relative">
+      <section className="scroll-reveal py-40 px-6 relative overflow-hidden">
+        {/* 배경 이미지 오버레이 */}
+        <div className="absolute inset-0 z-0">
+          <div
+            className="absolute inset-0 opacity-10"
+            style={{
+              backgroundImage: 'url(https://images.unsplash.com/photo-1528731708534-816fe59f90cb?w=1920&q=80)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              filter: 'grayscale(100%) brightness(0.4)'
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#011C42] via-[#1A0B0B] to-[#1A0B0B]" />
+        </div>
+
         <div className="max-w-5xl mx-auto relative z-10">
           <h2 className="text-windsurf-heading text-center mb-20 glow-red" style={{ color: '#FF6B6B' }}>
             복도 끝 화장실에 숨어서
@@ -87,7 +117,21 @@ export default function Home() {
       </section>
 
       {/* 전환점 - "그래서 변호사가 되었다" */}
-      <section className="scroll-reveal py-40 px-6 bg-transition-gradient relative">
+      <section className="scroll-reveal py-40 px-6 relative overflow-hidden">
+        {/* 배경 그라데이션 및 효과 */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-b from-[#1A0B0B] via-[#011C42] to-[#F5F5F0]" />
+          <div
+            className="absolute top-0 left-0 w-full h-1/2 opacity-5"
+            style={{
+              backgroundImage: 'url(https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1920&q=80)',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              filter: 'grayscale(100%)'
+            }}
+          />
+        </div>
+
         <div className="max-w-6xl mx-auto text-center relative z-10">
           <h2 className="text-windsurf-hero text-white mb-12 leading-tight">
             그래서
@@ -160,8 +204,23 @@ export default function Home() {
       </section>
 
       {/* CTA - Windsurf 스타일 버튼 */}
-      <section className="scroll-reveal py-40 px-6 bg-windsurf-hero relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
+      <section className="scroll-reveal py-40 px-6 relative overflow-hidden">
+        {/* 배경 비디오 효과 */}
+        <div className="absolute inset-0 z-0">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover opacity-15"
+            style={{ filter: 'grayscale(100%) brightness(0.4)' }}
+          >
+            <source src="https://cdn.coverr.co/videos/coverr-people-walking-in-school-hallway-3807/1080p.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0A1628]/95 via-[#011C42]/90 to-[#0D2847]/95" />
+        </div>
+
+        <div className="max-w-4xl mx-auto text-center relative z-10">
           <h2 className="text-windsurf-heading text-white mb-10">
             저와 함께 싸우시겠습니까?
           </h2>
