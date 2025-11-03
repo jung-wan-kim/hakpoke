@@ -1,14 +1,16 @@
 'use client'
 
 import Link from 'next/link'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 export default function Home() {
+  const videoRef = useRef<HTMLVideoElement>(null)
+
   useEffect(() => {
     // 스크롤 기반 애니메이션
     const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -100px 0px'
+      threshold: 0.15,
+      rootMargin: '0px 0px -10% 0px'
     }
 
     const observer = new IntersectionObserver((entries) => {
@@ -23,211 +25,307 @@ export default function Home() {
       observer.observe(el)
     })
 
+    // 비디오 자동 재생
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {
+        // 자동재생 실패 시 무시
+      })
+    }
+
     return () => observer.disconnect()
   }, [])
 
   return (
     <>
-      {/* 히어로 섹션 - 비디오 배경 효과 */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* 비디오 배경 (CSS 애니메이션) */}
-        <div className="video-background">
-          {/* 떨어지는 파티클 (눈물 효과) */}
-          {[...Array(10)].map((_, i) => (
-            <div key={i} className="particle" />
-          ))}
+      {/* 히어로 섹션 - 실제 비디오 배경 */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#1a1a1a]">
+        {/* 비디오 배경 */}
+        <div className="absolute inset-0 w-full h-full">
+          <video
+            ref={videoRef}
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover opacity-30 scale-110"
+            style={{ filter: 'grayscale(100%) brightness(0.4)' }}
+          >
+            <source src="https://cdn.coverr.co/videos/coverr-lonely-student-sitting-on-stairs-8584/1080p.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
         </div>
 
-        {/* 어두운 오버레이 */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/80 z-10" />
-
         {/* 콘텐츠 */}
-        <div className="relative z-20 text-center px-6 max-w-7xl mx-auto">
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            <p className="text-red-400 text-2xl md:text-4xl mb-8 font-light tracking-wide opacity-0 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-              "혼자가 아닙니다"
-            </p>
-          </div>
+        <div className="relative z-10 text-center px-6 max-w-[90rem] mx-auto">
+          <p
+            className="text-red-400/90 mb-12 opacity-0 animate-fade-in"
+            style={{
+              fontSize: 'clamp(1.5rem, 3vw, 3.5rem)',
+              fontWeight: 300,
+              letterSpacing: '0.05em',
+              animationDelay: '0.3s'
+            }}
+          >
+            "혼자가 아닙니다"
+          </p>
 
-          <h1 className="hero-title text-white mb-12 opacity-0 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
-            당신의<br />
-            고통을<br />
-            우리가<br />
-            함께합니다
+          <h1
+            className="text-white mb-16 opacity-0 animate-fade-in-up leading-[0.85]"
+            style={{
+              fontSize: 'clamp(4rem, 15vw, 20rem)',
+              fontWeight: 900,
+              letterSpacing: '-0.03em',
+              animationDelay: '0.6s',
+              textShadow: '0 20px 80px rgba(0,0,0,0.9)'
+            }}
+          >
+            당신의
+            <br />
+            고통을
           </h1>
 
-          <div className="opacity-0 animate-fade-in" style={{ animationDelay: '1s' }}>
-            <p className="hero-subtitle text-gray-300 mb-16 max-w-3xl mx-auto leading-relaxed">
-              학교폭력으로 힘든 시간을 보내고 계신가요?<br />
-              더 이상 혼자 견디지 마세요.<br />
-              <br />
-              <span className="text-white font-semibold text-4xl md:text-5xl">당신은 잘못하지 않았습니다.</span>
-            </p>
-          </div>
+          <p
+            className="text-gray-300 mb-20 max-w-4xl mx-auto opacity-0 animate-fade-in leading-relaxed"
+            style={{
+              fontSize: 'clamp(1.2rem, 2.5vw, 2.5rem)',
+              fontWeight: 300,
+              animationDelay: '1s'
+            }}
+          >
+            더 이상 혼자 견디지 마세요
+            <br />
+            <span className="text-white font-semibold" style={{ fontSize: 'clamp(1.8rem, 3.5vw, 4rem)' }}>
+              당신은 잘못하지 않았습니다
+            </span>
+          </p>
 
-          <div className="flex flex-col sm:flex-row justify-center gap-6 opacity-0 animate-scale-in" style={{ animationDelay: '1.4s' }}>
+          <div
+            className="flex flex-col sm:flex-row justify-center gap-6 opacity-0 animate-scale-in"
+            style={{ animationDelay: '1.4s' }}
+          >
             <Link
               href="/hope"
-              className="group relative px-12 py-6 bg-red-600 text-white rounded-full font-bold text-xl overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-red-600/50"
+              className="group relative px-14 py-7 bg-red-600 text-white rounded-full font-bold overflow-hidden transition-all duration-700"
+              style={{ fontSize: 'clamp(1.1rem, 2vw, 1.5rem)' }}
             >
               <span className="relative z-10">희망의 이야기</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-red-700 to-red-500 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500" />
+              <div className="absolute inset-0 bg-red-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left" />
             </Link>
             <Link
               href="/report"
-              className="group relative px-12 py-6 bg-white text-gray-900 rounded-full font-bold text-xl overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-2xl"
+              className="group relative px-14 py-7 bg-white text-gray-900 rounded-full font-bold overflow-hidden transition-all duration-700"
+              style={{ fontSize: 'clamp(1.1rem, 2vw, 1.5rem)' }}
             >
               <span className="relative z-10">지금 도움받기</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-gray-100 to-gray-200 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500" />
+              <div className="absolute inset-0 bg-gray-100 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left" />
             </Link>
           </div>
         </div>
 
         {/* 스크롤 인디케이터 */}
-        <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 z-20 opacity-0 animate-fade-in" style={{ animationDelay: '2s' }}>
-          <div className="flex flex-col items-center gap-3 text-gray-400">
-            <p className="text-sm tracking-wider uppercase">Scroll</p>
-            <div className="w-px h-16 bg-gradient-to-b from-gray-400 to-transparent animate-pulse" />
+        <div
+          className="absolute bottom-16 left-1/2 transform -translate-x-1/2 opacity-0 animate-fade-in"
+          style={{ animationDelay: '2s' }}
+        >
+          <div className="flex flex-col items-center gap-4 text-gray-500">
+            <p className="text-xs tracking-[0.3em] uppercase">Scroll</p>
+            <div className="w-[1px] h-20 bg-gradient-to-b from-gray-500 to-transparent" />
           </div>
         </div>
       </section>
 
-      {/* 공감 섹션 - 큰 타이포그래피 */}
-      <section className="scroll-reveal bg-black text-white py-32 px-6 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute inset-0 bg-gradient-to-br from-red-900 via-transparent to-blue-900 animate-pulse" />
-        </div>
-
-        <div className="max-w-6xl mx-auto relative z-10">
-          <blockquote className="text-5xl md:text-7xl lg:text-8xl font-light italic border-l-8 border-red-500 pl-12 mb-16 text-red-400 leading-tight">
-            "아무도 내 말을<br />
-            믿어주지 않을 것<br />
-            같아요..."
+      {/* 큰 따옴표 섹션 */}
+      <section className="scroll-reveal bg-gradient-to-b from-[#1a1a1a] to-[#0a0a0a] text-white py-40 px-6 relative">
+        <div className="max-w-[100rem] mx-auto">
+          <blockquote
+            className="text-red-400/80 font-light italic leading-[0.95] mb-20"
+            style={{
+              fontSize: 'clamp(3rem, 10vw, 12rem)',
+              letterSpacing: '-0.02em'
+            }}
+          >
+            "아무도
+            <br />
+            내 말을
+            <br />
+            믿어주지
+            <br />
+            않을 것 같아요"
           </blockquote>
 
-          <div className="space-y-12 text-2xl md:text-3xl text-gray-300 leading-relaxed">
-            <p className="transform hover:scale-105 transition-transform duration-500">
-              복도를 지나갈 때마다 들리는 속삭임.<br />
-              급식실에서 혼자 앉아야 하는 시간.<br />
-              아무도 내 편이 없는 것 같은 외로움.
+          <div className="space-y-16 max-w-5xl" style={{ fontSize: 'clamp(1.3rem, 2.8vw, 2.8rem)' }}>
+            <p className="text-gray-400 font-light leading-relaxed">
+              복도를 지나갈 때마다 들리는 속삭임
+              <br />
+              급식실에서 혼자 앉아야 하는 시간
+              <br />
+              아무도 내 편이 없는 것 같은 외로움
             </p>
-            <p className="text-white font-semibold text-4xl md:text-5xl">
-              그 고통, 우리는 압니다.
+
+            <p
+              className="text-white font-medium"
+              style={{ fontSize: 'clamp(2rem, 4vw, 5rem)' }}
+            >
+              그 고통, 우리는 압니다
             </p>
-            <p className="transform hover:scale-105 transition-transform duration-500">
-              <strong className="text-white text-4xl">당신만 겪는 일이 아닙니다.</strong><br />
-              많은 학생들이 지금 이 순간에도 같은 고통을 겪고 있습니다.
-            </p>
-            <div className="pt-8">
-              <p className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-red-400 via-pink-400 to-blue-400 animate-pulse">
-                반드시 나아질 수 있습니다.
-              </p>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* 전환점 섹션 */}
-      <section className="scroll-reveal relative py-32 px-6 bg-gradient-to-b from-black via-gray-900 to-white overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-red-900/20 via-transparent to-blue-900/20 animate-pulse" />
-        </div>
-
-        <div className="max-w-5xl mx-auto text-center relative z-10">
-          <h2 className="text-6xl md:text-8xl lg:text-9xl font-black mb-16 text-white leading-none">
-            하지만<br />
-            알아야<br />
+      {/* 전환 섹션 */}
+      <section className="scroll-reveal relative py-48 px-6 bg-gradient-to-b from-[#0a0a0a] via-[#2a2a2a] to-white">
+        <div className="max-w-6xl mx-auto text-center">
+          <h2
+            className="font-black mb-24 leading-[0.9]"
+            style={{
+              fontSize: 'clamp(4rem, 12vw, 15rem)',
+              background: 'linear-gradient(to bottom, #fff 0%, #888 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              letterSpacing: '-0.03em'
+            }}
+          >
+            하지만
+            <br />
+            알아야
+            <br />
             합니다
           </h2>
-          <div className="text-3xl md:text-4xl lg:text-5xl space-y-8 text-gray-200 font-light leading-relaxed">
-            <p className="transform hover:scale-105 transition-transform duration-500">이건 당신 잘못이 아닙니다.</p>
-            <p className="transform hover:scale-105 transition-transform duration-500">법이 당신을 보호합니다.</p>
-            <p className="transform hover:scale-105 transition-transform duration-500">도움을 요청할 수 있습니다.</p>
-            <div className="pt-12">
-              <p className="text-6xl md:text-7xl lg:text-8xl font-black text-red-500 animate-pulse">
-                당신은<br />이길 수 있습니다.
-              </p>
-            </div>
+
+          <div
+            className="space-y-10 text-gray-300 font-light"
+            style={{ fontSize: 'clamp(1.5rem, 3.5vw, 4rem)' }}
+          >
+            <p>이건 당신 잘못이 아닙니다</p>
+            <p>법이 당신을 보호합니다</p>
+            <p>도움을 요청할 수 있습니다</p>
+
+            <p
+              className="pt-16 font-black text-red-500"
+              style={{ fontSize: 'clamp(2.5rem, 6vw, 8rem)' }}
+            >
+              당신은
+              <br />
+              이길 수 있습니다
+            </p>
           </div>
         </div>
       </section>
 
-      {/* 통계 섹션 */}
-      <section className="scroll-reveal bg-white py-32 px-6">
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-5xl md:text-7xl font-black text-center mb-24 text-gray-900 leading-tight">
-            많은 학생들이<br />이미 극복했습니다
+      {/* 통계 섹션 - 밝은 배경 */}
+      <section className="scroll-reveal bg-[#f5f5f0] py-40 px-6">
+        <div className="max-w-[100rem] mx-auto">
+          <h2
+            className="text-center mb-32 font-black leading-tight"
+            style={{
+              fontSize: 'clamp(3rem, 8vw, 9rem)',
+              color: '#1a1a1a',
+              letterSpacing: '-0.02em'
+            }}
+          >
+            많은 학생들이
+            <br />
+            이미 극복했습니다
           </h2>
-          <div className="grid md:grid-cols-3 gap-12">
+
+          <div className="grid md:grid-cols-3 gap-16">
             {[
-              { number: '87%', label: '성공적인 해결', desc: '신고한 학생 중 대부분이 문제를 해결했습니다', color: 'red' },
-              { number: '24시간', label: '언제든 도움', desc: '밤낮없이 당신을 도와줄 준비가 되어있습니다', color: 'blue' },
-              { number: '100%', label: '익명 보장', desc: '당신의 신원은 완벽하게 보호됩니다', color: 'green' }
+              { number: '87%', label: '성공적인 해결', desc: '신고한 학생 중 대부분이\n문제를 해결했습니다' },
+              { number: '24시간', label: '언제든 도움', desc: '밤낮없이 당신을 도와줄\n준비가 되어있습니다' },
+              { number: '100%', label: '익명 보장', desc: '당신의 신원은\n완벽하게 보호됩니다' }
             ].map((stat, i) => (
               <div
                 key={i}
-                className="group relative bg-gradient-to-br from-gray-900 to-gray-800 p-12 rounded-3xl text-center overflow-hidden transform hover:scale-105 transition-all duration-500 hover:shadow-2xl"
-                style={{ animationDelay: `${i * 0.2}s` }}
+                className="group bg-white p-16 rounded-3xl text-center transition-all duration-700 hover:shadow-2xl hover:-translate-y-2"
               >
-                <div className={`absolute inset-0 bg-gradient-to-br from-${stat.color}-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-                <div className="relative z-10">
-                  <div className={`text-7xl md:text-8xl font-black text-${stat.color}-500 mb-6`}>
-                    {stat.number}
-                  </div>
-                  <div className="text-2xl font-bold mb-4 text-white">{stat.label}</div>
-                  <p className="text-gray-300 text-lg leading-relaxed">{stat.desc}</p>
+                <div
+                  className="font-black text-red-600 mb-8"
+                  style={{ fontSize: 'clamp(4rem, 8vw, 9rem)' }}
+                >
+                  {stat.number}
                 </div>
+                <div
+                  className="font-bold mb-6 text-gray-900"
+                  style={{ fontSize: 'clamp(1.5rem, 2.5vw, 2.5rem)' }}
+                >
+                  {stat.label}
+                </div>
+                <p
+                  className="text-gray-600 leading-relaxed whitespace-pre-line"
+                  style={{ fontSize: 'clamp(1rem, 1.5vw, 1.3rem)' }}
+                >
+                  {stat.desc}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 행동 촉구 섹션 */}
-      <section className="scroll-reveal relative py-32 px-6 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-red-600 via-red-500 to-orange-500" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+      {/* CTA 섹션 */}
+      <section className="scroll-reveal relative py-48 px-6 overflow-hidden bg-gradient-to-br from-red-600 to-red-800">
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0" style={{
+            backgroundImage: 'radial-gradient(circle at 30% 50%, rgba(255,255,255,0.1) 0%, transparent 50%)'
+          }} />
+        </div>
 
-        <div className="max-w-5xl mx-auto text-center relative z-10 text-white">
-          <h2 className="text-6xl md:text-8xl font-black mb-12 leading-tight">
-            지금 바로<br />시작하세요
-          </h2>
-          <p className="text-2xl md:text-4xl mb-16 leading-relaxed font-light">
-            하루하루가 고통스럽다는 것, 압니다.<br />
-            <strong className="font-bold text-5xl">하지만 더 이상 참지 마세요.</strong><br />
+        <div className="max-w-6xl mx-auto text-center relative z-10 text-white">
+          <h2
+            className="font-black mb-16 leading-tight"
+            style={{ fontSize: 'clamp(3.5rem, 10vw, 12rem)' }}
+          >
+            지금 바로
             <br />
-            첫 걸음을 내딛는 것만으로도<br />
-            당신은 이미 용감한 사람입니다.
+            시작하세요
+          </h2>
+
+          <p
+            className="mb-20 font-light leading-relaxed"
+            style={{ fontSize: 'clamp(1.3rem, 3vw, 3rem)' }}
+          >
+            하루하루가 고통스럽다는 것, 압니다
+            <br />
+            <strong className="font-bold" style={{ fontSize: 'clamp(1.8rem, 4vw, 4.5rem)' }}>
+              하지만 더 이상 참지 마세요
+            </strong>
           </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-6">
+
+          <div className="flex flex-col sm:flex-row justify-center gap-8">
             <Link
               href="/report"
-              className="group relative px-16 py-7 bg-white text-red-600 rounded-full font-bold text-2xl overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-2xl"
+              className="group relative px-16 py-8 bg-white text-red-600 rounded-full font-bold overflow-hidden transition-all duration-700 hover:shadow-2xl"
+              style={{ fontSize: 'clamp(1.2rem, 2.5vw, 2rem)' }}
             >
-              <span className="relative z-10">📝 지금 신고하기</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-gray-100 to-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500" />
+              <span className="relative z-10">지금 신고하기</span>
+              <div className="absolute inset-0 bg-gray-100 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left" />
             </Link>
             <Link
               href="/info"
-              className="group relative px-16 py-7 bg-gray-900 text-white rounded-full font-bold text-2xl overflow-hidden transition-all duration-500 hover:scale-105 hover:shadow-2xl"
+              className="group relative px-16 py-8 bg-gray-900 text-white rounded-full font-bold overflow-hidden transition-all duration-700 hover:shadow-2xl"
+              style={{ fontSize: 'clamp(1.2rem, 2.5vw, 2rem)' }}
             >
-              <span className="relative z-10">📚 정보 먼저 보기</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-gray-800 to-gray-900 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-500" />
+              <span className="relative z-10">정보 먼저 보기</span>
+              <div className="absolute inset-0 bg-black transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 origin-left" />
             </Link>
           </div>
         </div>
       </section>
 
-      {/* 긴급 연락처 섹션 */}
-      <section className="scroll-reveal bg-gradient-to-br from-yellow-50 to-orange-50 py-24 px-6 border-t-8 border-yellow-400">
-        <div className="max-w-5xl mx-auto">
-          <h2 className="text-5xl md:text-6xl font-black text-center mb-12 text-gray-900">
+      {/* 긴급 연락처 */}
+      <section className="scroll-reveal bg-[#fff9eb] py-32 px-6 border-t-8 border-yellow-600">
+        <div className="max-w-6xl mx-auto">
+          <h2
+            className="text-center mb-16 font-black"
+            style={{
+              fontSize: 'clamp(2.5rem, 6vw, 7rem)',
+              color: '#1a1a1a'
+            }}
+          >
             지금 당장 위험하다면
           </h2>
-          <p className="text-center text-2xl mb-12 text-gray-700 font-light">
-            긴급한 상황에서는 주저하지 말고 바로 연락하세요
-          </p>
-          <div className="grid md:grid-cols-2 gap-8">
+
+          <div className="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
             {[
               { number: '117', label: '학교폭력신고센터', desc: '24시간 상담 가능' },
               { number: '112', label: '경찰 긴급신고', desc: '즉시 도움' }
@@ -235,19 +333,29 @@ export default function Home() {
               <a
                 key={i}
                 href={`tel:${contact.number}`}
-                className="group bg-white p-12 rounded-3xl text-center shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:scale-105"
+                className="group bg-white p-16 rounded-3xl text-center shadow-xl hover:shadow-2xl transition-all duration-700 hover:-translate-y-2"
               >
-                <p className="text-xl font-semibold mb-4 text-gray-700">{contact.label}</p>
-                <p className="text-8xl font-black text-blue-600 group-hover:text-blue-700 mb-4 transition-colors">
+                <p
+                  className="font-semibold mb-6 text-gray-700"
+                  style={{ fontSize: 'clamp(1.2rem, 2vw, 1.8rem)' }}
+                >
+                  {contact.label}
+                </p>
+                <p
+                  className="font-black text-blue-600 group-hover:text-blue-700 mb-6 transition-colors"
+                  style={{ fontSize: 'clamp(5rem, 10vw, 11rem)' }}
+                >
                   {contact.number}
                 </p>
-                <p className="text-gray-600 text-lg">{contact.desc}</p>
+                <p
+                  className="text-gray-600"
+                  style={{ fontSize: 'clamp(1rem, 1.5vw, 1.3rem)' }}
+                >
+                  {contact.desc}
+                </p>
               </a>
             ))}
           </div>
-          <p className="text-center mt-12 text-gray-600">
-            모든 통화는 비밀이 보장되며, 전문 상담사가 도와드립니다
-          </p>
         </div>
       </section>
     </>
