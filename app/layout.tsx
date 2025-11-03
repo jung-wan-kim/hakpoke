@@ -15,41 +15,45 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <nav className="bg-blue-600 text-white p-4 shadow-lg">
-          <div className="container mx-auto flex justify-between items-center">
-            <Link href="/" className="text-2xl font-bold">
+        {/* Windsurf 스타일 네비게이션 */}
+        <nav className="fixed top-0 left-0 right-0 z-50 transition-all duration-300" style={{ background: 'rgba(10, 22, 40, 0.8)', backdropFilter: 'blur(20px)' }}>
+          <div className="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+            <Link href="/" className="text-white font-light text-2xl tracking-tight hover:text-white/80 transition-colors">
               학폭케어
             </Link>
-            <div className="space-x-4 md:space-x-6 text-sm md:text-base">
-              <Link href="/" className="hover:text-blue-200 transition">
+            <div className="flex items-center gap-1">
+              <Link href="/" className="text-white/70 hover:text-white text-sm font-medium px-4 py-2 rounded-sm transition-colors uppercase tracking-wider">
                 홈
               </Link>
-              <Link href="/hope" className="hover:text-blue-200 transition">
+              <Link href="/hope" className="text-white/70 hover:text-white text-sm font-medium px-4 py-2 rounded-sm transition-colors uppercase tracking-wider">
                 희망
               </Link>
-              <Link href="/help" className="hover:text-blue-200 transition">
+              <Link href="/help" className="text-white/70 hover:text-white text-sm font-medium px-4 py-2 rounded-sm transition-colors uppercase tracking-wider">
                 도움
               </Link>
-              <Link href="/info" className="hover:text-blue-200 transition">
+              <Link href="/info" className="text-white/70 hover:text-white text-sm font-medium px-4 py-2 rounded-sm transition-colors uppercase tracking-wider">
                 정보
               </Link>
-              <Link href="/report" className="hover:text-blue-200 transition font-bold">
+              <Link
+                href="/report"
+                className="ml-4 text-sm font-semibold px-6 py-2 rounded-sm transition-all uppercase tracking-wider"
+                style={{
+                  background: '#09B6A2',
+                  color: '#0A1628',
+                  boxShadow: '0 4px 12px rgba(9, 182, 162, 0.3)'
+                }}
+              >
                 신고
               </Link>
             </div>
           </div>
         </nav>
-        <main className="min-h-screen">
+
+        <main className="min-h-screen" style={{ paddingTop: '0' }}>
           {children}
         </main>
-        <footer className="bg-gray-800 text-white p-8 mt-16">
-          <div className="container mx-auto text-center">
-            <p className="mb-2">학폭케어 - 안전한 학교 만들기</p>
-            <p className="text-sm text-gray-400">
-              긴급 상황 시 117 (학교폭력신고센터) 또는 112 (경찰)로 연락하세요
-            </p>
-          </div>
-        </footer>
+
+        {/* Windsurf 스타일 푸터는 page.tsx에 통합되어 있으므로 제거 */}
       </body>
     </html>
   )
