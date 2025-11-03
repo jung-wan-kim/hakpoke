@@ -41,7 +41,7 @@ export default function Home() {
           >
             <source src="https://cdn.coverr.co/videos/coverr-lonely-student-sitting-on-stairs-8584/1080p.mp4" type="video/mp4" />
           </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0A1628]/90 via-[#0A1628]/80 to-[#0A1628]/95" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0A1628] via-[#0A1628] to-[#0D1F3E]" />
           <div className="grid-background absolute inset-0" />
         </div>
 
@@ -91,7 +91,7 @@ export default function Home() {
               filter: 'grayscale(100%) brightness(0.4)'
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-[#011C42] via-[#1A0B0B] to-[#1A0B0B]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#0D1F3E] via-[#1A0B0B] to-[#150A0A]" />
         </div>
 
         <div className="max-w-5xl mx-auto relative z-10">
@@ -120,7 +120,7 @@ export default function Home() {
       <section className="scroll-reveal py-40 px-6 relative overflow-hidden">
         {/* 배경 그라데이션 및 효과 */}
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-b from-[#1A0B0B] via-[#011C42] to-[#F5F5F0]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#150A0A] via-[#0D1F3E] via-[#1A2E4A] to-[#E8E8E0]" />
           <div
             className="absolute top-0 left-0 w-full h-1/2 opacity-5"
             style={{
@@ -148,8 +148,9 @@ export default function Home() {
       </section>
 
       {/* 현재 - 전문성과 신뢰 */}
-      <section className="scroll-reveal py-40 px-6 bg-light-section">
-        <div className="max-w-6xl mx-auto">
+      <section className="scroll-reveal py-40 px-6 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#E8E8E0] to-[#F5F5F0]" />
+        <div className="max-w-6xl mx-auto relative z-10">
           <h2 className="text-windsurf-heading text-center mb-24" style={{ color: '#1A1A2E' }}>
             이제 제가 여러분의 편입니다
           </h2>
@@ -217,7 +218,7 @@ export default function Home() {
           >
             <source src="https://cdn.coverr.co/videos/coverr-people-walking-in-school-hallway-3807/1080p.mp4" type="video/mp4" />
           </video>
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0A1628]/95 via-[#011C42]/90 to-[#0D2847]/95" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#E0E0D8] via-[#0D1F3E] to-[#0A1628]" />
         </div>
 
         <div className="max-w-4xl mx-auto text-center relative z-10">
@@ -257,7 +258,8 @@ export default function Home() {
       </section>
 
       {/* 긴급 연락처 */}
-      <section className="scroll-reveal py-32 px-6 relative" style={{ background: 'linear-gradient(180deg, #0D2847 0%, #1A1A2E 100%)' }}>
+      <section className="scroll-reveal py-32 px-6 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0A1628] to-[#0A1628]" />
         <div className="max-w-5xl mx-auto relative z-10">
           <div className="flex items-center justify-center gap-4 mb-16">
             <div className="decorative-dot" style={{ background: '#FF4444' }}></div>
